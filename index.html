@@ -18,12 +18,209 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* Tooltip bubble */
+        .map-tip {
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            transform: translate(-50%, calc(-100% - 12px));
+            background: #fff;
+            color: #0f172a;
+            padding: .5rem .75rem;
+            border-radius: .5rem;
+            font: 600 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+            box-shadow: 0 10px 20px rgba(2, 6, 23, .12), 0 2px 6px rgba(2, 6, 23, .08);
+            border: 1px solid rgba(2, 6, 23, .06);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity .12s ease;
+        }
+
+        .map-tip.show {
+            opacity: 1;
+        }
+
+        .map-tip .chip {
+            display: inline-block;
+            margin-left: .5rem;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: .02em;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: .375rem;
+        }
+
+        /* style for color change input  */
+        /* Color picker styling */
+        .map-color-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
+            align-items: center;
+            margin: 1rem 0 1.25rem;
+            font: 500 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+        }
+
+        .map-color-picker .swatch {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            user-select: none;
+        }
+
+        .map-color-picker input[type="radio"] {
+            display: none;
+        }
+
+        .map-color-picker .swatch span {
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            display: inline-block;
+            background: var(--swatch);
+            border: 2px solid rgba(0, 0, 0, .15);
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .5);
+            cursor: pointer;
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+
+        .map-color-picker .swatch em {
+            font-style: normal;
+            color: #334155;
+        }
+
+        .map-color-picker .swatch input:checked+span {
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, .25), inset 0 0 0 2px #fff;
+            transform: scale(1.05);
+        }
+
+        /* Tooltip bubble */
+        .map-tip {
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            transform: translate(-50%, calc(-100% - 12px));
+            background: #fff;
+            color: #0f172a;
+            padding: .5rem .75rem;
+            border-radius: .5rem;
+            font: 600 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+            box-shadow: 0 10px 20px rgba(2, 6, 23, .12), 0 2px 6px rgba(2, 6, 23, .08);
+            border: 1px solid rgba(2, 6, 23, .06);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity .12s ease;
+        }
+
+        .map-tip.show {
+            opacity: 1;
+        }
+
+        .map-tip .chip {
+            display: inline-block;
+            margin-left: .5rem;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: .02em;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: .375rem;
+        }
     </style>
 </head>
 
 <body>
 
 
+    <div class="container">
+        <!-- MAP COLOR PICKER -->
+    <h2 style="text-transform: capitalize;">     select any color to change the map color</h2>
+      <form id="map-color-picker" class="map-color-picker" aria-label="Map base color">
+  <!-- 1 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#3D68A8" checked />
+    <span style="--swatch:#3D68A8" title="Blue"></span><em>Blue</em>
+  </label>
+  <!-- 2 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#1E3A8A" />
+    <span style="--swatch:#1E3A8A" title="Navy"></span><em>Navy</em>
+  </label>
+  <!-- 3 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#2563EB" />
+    <span style="--swatch:#2563EB" title="Royal Blue"></span><em>Royal Blue</em>
+  </label>
+  <!-- 4 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#38BDF8" />
+    <span style="--swatch:#38BDF8" title="Sky"></span><em>Sky</em>
+  </label>
+  <!-- 5 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#0EA5A4" />
+    <span style="--swatch:#0EA5A4" title="Teal"></span><em>Teal</em>
+  </label>
+  <!-- 6 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#10B981" />
+    <span style="--swatch:#10B981" title="Emerald"></span><em>Emerald</em>
+  </label>
+  <!-- 7 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#16A34A" />
+    <span style="--swatch:#16A34A" title="Forest"></span><em>Forest</em>
+  </label>
+  <!-- 8 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#8B5CF6" />
+    <span style="--swatch:#8B5CF6" title="Violet"></span><em>Violet</em>
+  </label>
+  <!-- 9 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#6366F1" />
+    <span style="--swatch:#6366F1" title="Indigo"></span><em>Indigo</em>
+  </label>
+  <!-- 10 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#F59E0B" />
+    <span style="--swatch:#F59E0B" title="Amber"></span><em>Amber</em>
+  </label>
+  <!-- 11 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#EA580C" />
+    <span style="--swatch:#EA580C" title="Terracotta"></span><em>Terracotta</em>
+  </label>
+  <!-- 12 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#64748B" />
+    <span style="--swatch:#64748B" title="Slate"></span><em>Slate</em>
+  </label>
+  <!-- 13 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#94A3B8" />
+    <span style="--swatch:#94A3B8" title="Cool Gray"></span><em>Cool Gray</em>
+  </label>
+  <!-- 14 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#EBEBEF" />
+    <span style="--swatch:#EBEBEF" title="Light Gray"></span><em>Light Gray</em>
+  </label>
+  <!-- 15 -->
+  <label class="swatch">
+    <input type="radio" name="map_color" data-color="#0F172A" />
+    <span style="--swatch:#0F172A" title="Charcoal"></span><em>Charcoal</em>
+  </label>
+</form>
+
+
+        <!-- Your SVG goes here -->
+        <!-- <svg id="USA_SVG_ID"> ... </svg> -->
+
+    </div>
+    <h1 style="text-transform: uppercase; text-align: center; margin-top: 15px;">hover over a stata</h1>
     <svg id="ikr_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
         viewBox=" 174 100 959 593">
 
@@ -297,12 +494,112 @@
     </svg>
     </div>
 
+<script>
+(function () {
+  const DEFAULT_BASE = "#EBEBEF";   // default base on first load
+  const HIGHLIGHT    = "#D4AF4A";   // hover/touch highlight (gold)
+  let currentBaseFill = DEFAULT_BASE;
+
+  const codes = ["HI","AK","FL","SC","GA","AL","NC","TN","RI","CT","MA","ME","NH","VT","NY","NJ","PA","DE","MD","WV","KY","OH","MI","WY","MT","ID","WA","TX","CA","AZ","NV","UT","CO","NM","OR","ND","SD","NE","IA","MS","IN","IL","MN","WI","MO","AR","OK","KS","LA","VA","DC"];
+
+  const slug = {
+    AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",
+    CO:"Colorado",CT:"Connecticut",DE:"Delaware",DC:"Washington,_D.C.",
+    FL:"Florida",GA:"Georgia_(U.S._state)",HI:"Hawaii",ID:"Idaho",
+    IL:"Illinois",IN:"Indiana",IA:"Iowa",KS:"Kansas",KY:"Kentucky",
+    LA:"Louisiana",ME:"Maine",MD:"Maryland",MA:"Massachusetts",MI:"Michigan",
+    MN:"Minnesota",MS:"Mississippi",MO:"Missouri",MT:"Montana",NE:"Nebraska",
+    NV:"Nevada",NH:"New_Hampshire",NJ:"New_Jersey",NM:"New_Mexico",
+    NY:"New_York_(state)",NC:"North_Carolina",ND:"North_Dakota",OH:"Ohio",
+    OK:"Oklahoma",OR:"Oregon",PA:"Pennsylvania",RI:"Rhode_Island",
+    SC:"South_Carolina",SD:"South_Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",
+    VT:"Vermont",VA:"Virginia",WA:"Washington_(state)",WV:"West_Virginia",
+    WI:"Wisconsin",WY:"Wyoming"
+  };
+
+  const tip = document.createElement("div");
+  tip.className = "map-tip";
+  tip.innerHTML = `<span class="label"></span><span class="chip">W</span>`;
+  const tipLabel = tip.querySelector(".label");
+  document.body.appendChild(tip);
+  const showTip = (x,y,text)=>{ tipLabel.textContent = `${text} · Wikipedia`; tip.style.left = x+"px"; tip.style.top = y+"px"; tip.classList.add("show"); };
+  const hideTip = ()=> tip.classList.remove("show");
+
+  const isMobile = ()=> /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const prettyLabel = code => (slug[code]||code).replace(/_/g," ").replace(" (U.S. state)","").replace(" (state)","");
+  const setFill = (el,color)=>{
+    if(!el) return;
+    if(el.tagName.toLowerCase()==="g"){
+      el.querySelectorAll("path,polygon,rect").forEach(p=>p.style.fill=color);
+    }else{
+      el.style.fill = color;
+    }
+  };
+  const paintAll = (color)=>{
+    codes.forEach(code=>{
+      const el = document.querySelector(`#${CSS.escape(code)}`);
+      if(el) setFill(el, color);
+    });
+  };
+
+  window.addEventListener("load", () => {
+    // Initialize currentBaseFill from the checked radio (if present)
+    const checked = document.querySelector('#map-color-picker input[name="map_color"]:checked');
+    if (checked && checked.dataset.color) currentBaseFill = checked.dataset.color;
+
+    // Initial paint
+    paintAll(currentBaseFill);
+
+    // Bind interactions
+    const mobile = isMobile();
+    codes.forEach(code=>{
+      const node = document.querySelector(`#${CSS.escape(code)}`);
+      if(!node) return;
+
+      const openWiki = ()=> {
+        const s = slug[code];
+        if(s) window.open(`https://en.wikipedia.org/wiki/${s}`,"_blank","noopener");
+      };
+
+      if(mobile){
+        node.addEventListener("touchstart", ()=>{ setFill(node, HIGHLIGHT); openWiki(); }, {passive:true});
+        node.addEventListener("touchend",  ()=> setFill(node, currentBaseFill));   // <-- revert to selected color
+      }else{
+        node.addEventListener("mousemove", ev=>{
+          setFill(node, HIGHLIGHT);
+          showTip(ev.clientX, ev.clientY, prettyLabel(code));
+        });
+        node.addEventListener("mouseleave", ()=>{
+          setFill(node, currentBaseFill);  // <-- revert to selected color
+          hideTip();
+        });
+        node.addEventListener("click", openWiki);
+      }
+    });
+
+    // Color picker -> update currentBaseFill + repaint
+    const picker = document.getElementById("map-color-picker");
+    if(picker){
+      picker.addEventListener("change", (e)=>{
+        const input = e.target.closest('input[type="radio"][name="map_color"]');
+        if(!input) return;
+        currentBaseFill = input.dataset.color || DEFAULT_BASE;  // <-- update the base color
+        paintAll(currentBaseFill);                               // repaint whole map
+      });
+      // Make the color circles clickable
+      picker.querySelectorAll(".swatch span").forEach(swatch=>{
+        swatch.addEventListener("click", ()=>{
+          const input = swatch.previousElementSibling;
+          if(input){ input.checked = true; input.dispatchEvent(new Event("change",{bubbles:true})); }
+        });
+      });
+    }
+  });
+})();
+</script>
 
 
 
-    <script>
-        (function () { var _0x4b1f = ["\x44\x34\x41\x46\x34\x41", "\x23", "\x6F\x70\x65\x6E", "\x5F\x62\x6C\x61\x6E\x6B", "\x74\x61\x72\x67\x65\x74", "\x73\x74\x79\x6C\x65", "\x66\x69\x6C\x6C", "\x63\x6C\x69\x63\x6B", "\x61\x64\x64\x45\x76\x65\x6E\x74\x4C\x69\x73\x74\x65\x6E\x65\x72", "\x6D\x6F\x75\x73\x65\x6F\x75\x74", "\x6D\x6F\x75\x73\x65\x6D\x6F\x76\x65", "\x74\x6F\x75\x63\x68\x65\x6E\x64", "\x74\x6F\x75\x63\x68\x73\x74\x61\x72\x74", "\x74\x65\x73\x74", "\x75\x73\x65\x72\x41\x67\x65\x6E\x74", "\x6D\x61\x70", "\x71\x75\x65\x72\x79\x53\x65\x6C\x65\x63\x74\x6F\x72"]; let c = _0x4b1f[0]; let d = ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA", "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH", "MI", "WY", "MT", "ID", "WA", "TX", "CA", "AZ", "NV", "UT", "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN", "WI", "MO", "AR", "OK", "KS", "LA", "VA", "DC"]; let e = { AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California", CO: "Colorado", CT: "Connecticut", DE: "Delaware", DC: "Washington,_D.C.", FL: "Florida", GA: "Georgia_(U.S._state)", HI: "Hawaii", ID: "Idaho", IL: "Illinois", IN: "Indiana", IA: "Iowa", KS: "Kansas", KY: "Kentucky", LA: "Louisiana", ME: "Maine", MD: "Maryland", MA: "Massachusetts", MI: "Michigan", MN: "Minnesota", MS: "Mississippi", MO: "Missouri", MT: "Montana", NE: "Nebraska", NV: "Nevada", NH: "New_Hampshire", NJ: "New_Jersey", NM: "New_Mexico", NY: "New_York_(state)", NC: "North_Carolina", ND: "North_Dakota", OH: "Ohio", OK: "Oklahoma", OR: "Oregon", PA: "Pennsylvania", RI: "Rhode_Island", SC: "South_Carolina", SD: "South_Dakota", TN: "Tennessee", TX: "Texas", UT: "Utah", VT: "Vermont", VA: "Virginia", WA: "Washington_(state)", WV: "West_Virginia", WI: "Wisconsin", WY: "Wyoming" }; function f() { return /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i[_0x4b1f[13]](navigator[_0x4b1f[14]]) } d[_0x4b1f[15]]((g) => { let h = document[_0x4b1f[16]](`#${g}`); if (!h) return; let i = () => { let j = e[g]; if (!j) return; let k = `https://en.wikipedia.org/wiki/${j}`; window[_0x4b1f[2]](k, _0x4b1f[3]) }; if (f()) { h[_0x4b1f[8]](_0x4b1f[12], (l) => { l[_0x4b1f[4]][_0x4b1f[5]][_0x4b1f[6]] = _0x4b1f[1] + c; i() }); h[_0x4b1f[8]](_0x4b1f[11], (l) => { l[_0x4b1f[4]][_0x4b1f[5]][_0x4b1f[6]] = "" }) } else { h[_0x4b1f[8]](_0x4b1f[7], i); h[_0x4b1f[8]](_0x4b1f[10], (l) => { l[_0x4b1f[4]][_0x4b1f[5]][_0x4b1f[6]] = _0x4b1f[1] + c }); h[_0x4b1f[8]](_0x4b1f[9], (l) => { l[_0x4b1f[4]][_0x4b1f[5]][_0x4b1f[6]] = "" }) } }) })();
-    </script>
 
 
 </body>
